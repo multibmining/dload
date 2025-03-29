@@ -8,18 +8,32 @@
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; background-color: #111; color: #fff; }
         h1 { color: #f39c12; }
         .crypto-prices { margin-top: 20px; font-size: 18px; }
+        nav { background: #222; padding: 10px; }
+        nav a { color: #f39c12; margin: 0 15px; text-decoration: none; }
+        .container { max-width: 800px; margin: auto; }
     </style>
 </head>
 <body>
-    <h1>Welcome to Multi Blockchain Mining</h1>
-    <p>Mine multiple cryptocurrencies efficiently.</p>
-    <div class="crypto-prices">
-        <p>Live Crypto Prices:</p>
-        <p>BTC: <span id="btc-price">Loading...</span></p>
-        <p>ETH: <span id="eth-price">Loading...</span></p>
-        <p>PI: <span id="pi-price">Loading...</span></p>
-        <p>XRP: <span id="xrp-price">Loading...</span></p>
-        <p>SOL: <span id="sol-price">Loading...</span></p>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="support.html">Support</a>
+        <a href="grievance.html">Grievance</a>
+        <a href="tutorial.html">Tutorial</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="license.html">License</a>
+    </nav>
+    <div class="container">
+        <h1>Welcome to Multi Blockchain Mining</h1>
+        <p>Mine multiple cryptocurrencies efficiently.</p>
+        <div class="crypto-prices">
+            <p>Live Crypto Prices:</p>
+            <p>BTC: <span id="btc-price">Loading...</span></p>
+            <p>ETH: <span id="eth-price">Loading...</span></p>
+            <p>PI: <span id="pi-price">Loading...</span></p>
+            <p>XRP: <span id="xrp-price">Loading...</span></p>
+            <p>SOL: <span id="sol-price">Loading...</span></p>
+        </div>
     </div>
     <script>
         async function fetchPrices() {
@@ -28,7 +42,7 @@
                 let data = await response.json();
                 document.getElementById('btc-price').innerText = `$${data.bitcoin.usd}`;
                 document.getElementById('eth-price').innerText = `$${data.ethereum.usd}`;
-                document.getElementById('pi-price').innerText = `$${data['pi-network'].usd || 'N/A'}`;
+                document.getElementById('pi-price').innerText = `$${data['pi-network']?.usd || 'N/A'}`;
                 document.getElementById('xrp-price').innerText = `$${data.ripple.usd}`;
                 document.getElementById('sol-price').innerText = `$${data.solana.usd}`;
             } catch (error) {
