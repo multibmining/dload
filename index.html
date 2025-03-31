@@ -102,7 +102,7 @@
                 // Fetching PI Network price from CoinPaprika
                 let piPrice = "N/A";
                 try {
-                    const piResponse = await fetch('https://api.coinpaprika.com/v1/tickers/pi-pi-network');
+                    const piResponse = await fetch('https://api.coinpaprika.com/v1/tickers/pi-network');
                     const piData = await piResponse.json();
                     piPrice = piData?.quotes?.USD?.price.toFixed(2) || "N/A";
                 } catch (piError) {
