@@ -47,13 +47,6 @@
                 text-shadow: 0 0 20px #ff00ff, 0 0 30px #00ffff, 0 0 40px #ff00ff;
             }
         }
-        .crypto-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
         .ticker-container {
             width: 100%;
             overflow: hidden;
@@ -102,18 +95,28 @@
     <script>
         async function fetchCryptoPrices() {
             try {
-                const response = await fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC,ETH,SOL,XRP,BNB,PI', {
-                    headers: {
-                        'X-CMC_PRO_API_KEY': 'YOUR_API_KEY'
-                    }
-                });
+                // Fetching BTC, ETH, SOL, XRP, BNB prices from CoinGecko
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple,binancecoin&vs_currencies=usd');
                 const data = await response.json();
-                const prices = `BTC: $${data.data.BTC.quote.USD.price.toFixed(2)} | ETH: $${data.data.ETH.quote.USD.price.toFixed(2)} | SOL: $${data.data.SOL.quote.USD.price.toFixed(2)} | XRP: $${data.data.XRP.quote.USD.price.toFixed(2)} | BNB: $${data.data.BNB.quote.USD.price.toFixed(2)} | PI: $${data.data.PI.quote.USD.price.toFixed(2)}`;
+
+                // Fetching PI Network price from CoinPaprika
+                let piPrice = "N/A";
+                try {
+                    const piResponse = await fetch('https://api.coinpaprika.com/v1/tickers/pi-pi-network');
+                    const piData = await piResponse.json();
+                    piPrice = piData?.quotes?.USD?.price.toFixed(2) || "N/A";
+                } catch (piError) {
+                    console.warn("Failed to fetch PI price:", piError);
+                }
+
+                // Formatting price display
+                const prices = `BTC: $${data.bitcoin.usd} | ETH: $${data.ethereum.usd} | SOL: $${data.solana.usd} | XRP: $${data.ripple.usd} | BNB: $${data.binancecoin.usd} | PI: $${piPrice}`;
                 document.getElementById('crypto-ticker').innerText = prices;
             } catch (error) {
                 document.getElementById('crypto-ticker').innerText = 'Failed to load prices';
             }
         }
+
         fetchCryptoPrices();
         setInterval(fetchCryptoPrices, 30000);
     </script>
