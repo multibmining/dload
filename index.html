@@ -96,7 +96,7 @@
         async function fetchCryptoPrices() {
             try {
                 // Fetching BTC, ETH, SOL, XRP, BNB prices from CoinGecko
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple,binancecoin&vs_currencies=usd');
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,ripple,binancecoin&vs_currencies=usd,inr');
                 const data = await response.json();
 
                 // Fetching PI Network price from CoinPaprika
